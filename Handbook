@@ -1,0 +1,57 @@
+if (prev.getResponseCode() == "419") {
+    SampleResult.setSuccessful(true) // Pass the test
+} else if (prev.getResponseCode() == "403") {
+    SampleResult.setSuccessful(false) // Fail on 403
+}
+
+Understanding the JSR223 Assertion (Groovy Code)
+Here’s the script again:
+
+groovy
+Copy
+Edit
+if (prev.getResponseCode() == "419") {
+    SampleResult.setSuccessful(true)
+}
+Let’s analyze each part:
+
+1️⃣ prev → Previous Response Object
+prev is a built-in variable in JMeter.
+It represents the last executed request's response.
+Using prev.getResponseCode(), we can check the HTTP response code.
+2️⃣ prev.getResponseCode() → Fetching HTTP Response Code
+getResponseCode() extracts the response status (e.g., 200, 404, 419).
+This lets us check if the request failed due to a known error.
+3️⃣ if (prev.getResponseCode() == "419") → Checking Response
+This line compares the response code to "419".
+If the code is 419, it executes the next line.
+== is a comparison operator in Groovy (similar to Java).
+4️⃣ SampleResult.setSuccessful(true) → Forcing Test to Pass
+SampleResult is another built-in object that controls JMeter’s result.
+setSuccessful(true) tells JMeter that the test should be marked as "Passed".
+Normally, a 419 error would fail the test, but this overrides the default behavior.
+🔍 Expanding Your Groovy Knowledge
+To learn more about Groovy scripting in JMeter:
+
+Print response details to debug:
+
+groovy
+
+log.info("Response Code: " + prev.getResponseCode())
+log.info("Response Message: " + prev.getResponseMessage())
+log.info("Response Time: " + prev.getTime())
+Extract and use values:
+
+groovy
+
+def responseBody = prev.getResponseDataAsString() // Get response as text
+log.info("Response Body: " + responseBody)
+Conditionally fail the test (e.g., fail on 403 but pass on 419):
+
+groovy
+
+if (prev.getResponseCode() == "419") {
+    SampleResult.setSuccessful(true) // Pass the test
+} else if (prev.getResponseCode() == "403") {
+    SampleResult.setSuccessful(false) // Fail on 403
+}
