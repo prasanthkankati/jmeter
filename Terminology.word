@@ -1,0 +1,32 @@
+CSRF Token:
+What is a CSRF Token?
+A CSRF token (Cross-Site Request Forgery token) is a security feature used in web applications to prevent unauthorized actions on behalf of an authenticated user.
+
+📌 Why is it Important?
+Protects against Cross-Site Request Forgery (CSRF) attacks.
+Ensures that form submissions or API requests come from a legitimate user session.
+Without a valid CSRF token, the server rejects requests (often returning HTTP 419 or 403 errors).
+🚀 Handling CSRF Token in JMeter (Login Requests)
+If your website has CSRF protection, JMeter must extract and send the CSRF token with each request.
+
+✅ Steps to Handle CSRF in JMeter
+1️⃣ Extract CSRF Token from the Login Page
+2️⃣ Pass the CSRF Token in the Login Request
+
+1️⃣ Extract CSRF Token Using "Regular Expression Extractor"
+Open JMeter
+Go to Your Login Request (GET Request)
+This is where the page returns the CSRF token in the response.
+Add "Regular Expression Extractor"
+Right-click Login Request → Add → Post Processors → Regular Expression Extractor
+Configure the Extractor:
+Field to check → Body (default)
+Regular Expression → _token" value="(.+?)"
+Template → $1$
+Match No. → 1
+Name of created variable → CSRF_TOKEN
+2️⃣ Use Extracted CSRF Token in Login Request
+Go to Your Login Request (POST Request)
+Add a "Parameter" in the HTTP Request
+Name → _token
+Value → ${CSRF_TOKEN}
